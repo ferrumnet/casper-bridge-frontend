@@ -492,6 +492,7 @@ export const CasperSwap = () => {
                 <FInputText
                   className={"f-mt-2"}
                   label={"AMOUNT TO SWAP "}
+                  data-testid={"caspertoevm_input"}
                   placeholder={"0"}
                   value={amount}
                   onChange={(e: any) => {

@@ -59,7 +59,7 @@ describe('BscToCasper page tests', () => {
      it('should render casper to bsc input when component is mounted', () => {
         renderWithProviders(<App />);
 
-        const bscToCasper = screen.getAllByTestId(/caspertobsc_input/i);
+        const bscToCasper = screen.getAllByTestId(/caspertoevm_input/i);
         expect(bscToCasper.length).toBe(2)
 
         userEvent.type(bscToCasper[0], '1')
@@ -107,7 +107,7 @@ describe('BscToCasper page tests', () => {
         expect(bscToCasperSubmitBtn).toHaveLength(0)
 
         const bscToCasperSwapBtn = screen.queryAllByText(/SWAP/i);
-        expect(bscToCasperSwapBtn).toHaveLength(5)
+        expect(bscToCasperSwapBtn).toHaveLength(4)
 
     });
 

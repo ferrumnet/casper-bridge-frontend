@@ -7,6 +7,7 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import { setupStore } from '../src/redux/store'
 import { casperSlice } from '../src/redux/casper/casperSlice';
+import { walletConnectorSlice } from '../src/components/connector/wallet-connector';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -42,7 +43,7 @@ describe('Swap page tests', () => {
     it('should render bsc to casper input when component is mounted', () => {
         renderWithProviders(<App />);
 
-        const bscToCasper = screen.getAllByTestId(/caspertobsc_input/i);
+        const bscToCasper = screen.getAllByTestId(/caspertoevm_input/i);
         expect(bscToCasper.length).toBe(2)
 
         userEvent.type(bscToCasper[0], '2')
@@ -51,7 +52,7 @@ describe('Swap page tests', () => {
      it('should render casper to bsc input when component is mounted', () => {
         renderWithProviders(<App />);
 
-        const bscToCasper = screen.getAllByTestId(/caspertobsc_input/i);
+        const bscToCasper = screen.getAllByTestId(/caspertoevm_input/i);
         expect(bscToCasper.length).toBe(2)
 
         userEvent.type(bscToCasper[0], '1')
@@ -87,7 +88,7 @@ describe('Swap page tests', () => {
         expect(bscToCasperSubmitBtn).toHaveLength(0)
 
         const bscToCasperSwapBtn = screen.queryAllByText(/SWAP/i);
-        expect(bscToCasperSwapBtn).toHaveLength(5)
+        expect(bscToCasperSwapBtn).toHaveLength(4)
 
     });
 
@@ -96,13 +97,24 @@ describe('Swap page tests', () => {
             connectedAccounts: ['02031161d6bbcdac68448b8458c6d9e367606fe8063e258fa555c5575fd8e0454c62']
         }))
 
+        setupStore().dispatch(walletConnectorSlice.actions.walletConnected({
+            userAccount: {
+                'account': '0x0Bdb79846e8331A19A65430363f240Ec8aCC2A52',
+                'balance': '1000',
+                'chainId': '97',
+                'networkClient': {}
+            },
+            currentWallet: '',
+
+        }))
+
         const ethereumProvider = jest.fn()
         //@ts-ignore
         window.CasperWalletProvider = ethereumProvider;
 
         renderWithProviders(<App />);
 
-        const bscToCasper = screen.getAllByTestId(/caspertobsc_input/i);
+        const bscToCasper = screen.getAllByTestId(/caspertoevm_input/i);
         expect(bscToCasper.length).toBe(2)
 
         userEvent.type(bscToCasper[0], '2')
@@ -110,10 +122,10 @@ describe('Swap page tests', () => {
         const bscToCasperSwapBtn = screen.getAllByRole('button', {
             name: /SWAP/i
           })
-        expect(bscToCasperSwapBtn).toHaveLength(1)
+        expect(bscToCasperSwapBtn).toHaveLength(2)
 
 
-        userEvent.click(bscToCasperSwapBtn[0])
+        userEvent.click(bscToCasperSwapBtn[1])
 
         // casper provider should have been called with request
         expect(casperProvider).toHaveBeenCalled()
