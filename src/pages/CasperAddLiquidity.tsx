@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getStakingInfo } from "../utils/DateUtil";
 import { connectWallet, connectWallet as connectWalletDispatch } from '../redux/casper/casperActions';
 import { useHistory, useParams } from "react-router";
-import './layout.scss';
 import { CasperServiceByJsonRPC, CLPublicKey, CLValue, 
   CLValueBuilder, 
   decodeBase16, 
@@ -16,8 +15,6 @@ import { CasperServiceByJsonRPC, CLPublicKey, CLValue,
 import toast from "react-hot-toast";
 import TxProcessingDialog from "../dialogs/TxProcessingDialog";
 import ConfirmationDialog from "../dialogs/ConfirmationDialog";
-import { MetaMaskConnector } from "../components/connector";
-import { ConnectWalletDialog } from "../utils/connect-wallet/ConnectWalletDialog";
 import { crucibleApi } from "../client";
 import { Web3Helper } from "../utils/web3Helper";
 import { networksToChainIdMap } from "../utils/network";
@@ -189,53 +186,50 @@ export const CasperAddLiquidity = () => {
       const provider = casperWalletProvider();
       setLoading(true)
       try {
-        if (amount && Number(amount) > 0) {
-          const publicKeyHex = selectedAccount?.address;
-          const senderPublicKey = CLPublicKey.fromHex(publicKeyHex);
+        const publicKeyHex = selectedAccount?.address;
+        const senderPublicKey = CLPublicKey.fromHex(publicKeyHex);
 
-          const deployParams = new DeployUtil.DeployParams(
-            senderPublicKey,
-            'casper'
+        const deployParams = new DeployUtil.DeployParams(
+          senderPublicKey,
+          'casper'
+        );
+
+        const args = RuntimeArgs.fromMap({
+          "amount": CLValueBuilder.u256(Number(amount) * 100),
+          "token_address": CLValueBuilder.string('contract-package-wasm5fe4b52b2b1a3a0eebdc221ec9e290df1535ad12a7fac37050095201f449acc4'),
+          "bridge_pool_contract_package_hash": CLValueBuilder.string('contract-package-wasme0f1bcfbbc1554dc0cbd1316cc1658645b58898aa5add056985f9d6cb0f6f75b'),
+        });
+
+        const session = DeployUtil.ExecutableDeployItem.newStoredContractByHash(
+          decodeBase16('e0f1bcfbbc1554dc0cbd1316cc1658645b58898aa5add056985f9d6cb0f6f75b'),
+          'add_liquidity',
+          args
+        );
+
+        const payment = DeployUtil.standardPayment(10000000000);
+
+        const deploy = DeployUtil.makeDeploy(deployParams, session, payment);
+
+        const deployJson: any = DeployUtil.deployToJson(deploy);
+      
+        provider.sign(JSON.stringify(deployJson), publicKeyHex).then(async (signedDeployJson: any) => {
+          const signedDeploy = DeployUtil.setSignature(
+            deploy,
+            signedDeployJson.signature,
+            CLPublicKey.fromHex(publicKeyHex)
           );
-
-          const args = RuntimeArgs.fromMap({
-            "amount": CLValueBuilder.u256(Number(amount) * 100),
-            "token_address": CLValueBuilder.string('contract-package-wasm5fe4b52b2b1a3a0eebdc221ec9e290df1535ad12a7fac37050095201f449acc4'),
-            "bridge_pool_contract_package_hash": CLValueBuilder.string('contract-package-wasme0f1bcfbbc1554dc0cbd1316cc1658645b58898aa5add056985f9d6cb0f6f75b'),
-          });
-
-          const session = DeployUtil.ExecutableDeployItem.newStoredContractByHash(
-            decodeBase16('e0f1bcfbbc1554dc0cbd1316cc1658645b58898aa5add056985f9d6cb0f6f75b'),
-            'add_liquidity',
-            args
-          );
-
-          const payment = DeployUtil.standardPayment(10000000000);
-
-          const deploy = DeployUtil.makeDeploy(deployParams, session, payment);
-
-          const deployJson: any = DeployUtil.deployToJson(deploy);
-        
-          provider.sign(JSON.stringify(deployJson), publicKeyHex).then(async (signedDeployJson: any) => {
-            const signedDeploy = DeployUtil.setSignature(
-              deploy,
-              signedDeployJson.signature,
-              CLPublicKey.fromHex(publicKeyHex)
-            );
-            // const signedDeploy = DeployUtil.deployFromJson(signedDeployJson);
-            if (signedDeploy) {
-              const res = await casperClient.putDeploy(signedDeploy);
-              setProcessMsg(res)
-              setLoading(false)
-              setShowConfirmation(true)
-            }
-            
-          });
+          // const signedDeploy = DeployUtil.deployFromJson(signedDeployJson);
+          if (signedDeploy) {
+            const res = await casperClient.putDeploy(signedDeploy);
+            setProcessMsg(res)
+            setLoading(false)
+            setShowConfirmation(true)
+          }
+          
+        });
           // navigate.push(`/${config._id}`);
           //toast.success(`${amount} tokens are staked successfully`);
-        } else {
-          toast.error("Amount must be greater than 0");
-        }
+       
       } catch (e) {
         toast.error("An error occured please see console for details");
       } finally {
@@ -243,7 +237,7 @@ export const CasperAddLiquidity = () => {
       }
 
     } else {
-      navigate.push(`/${config._id}`);
+      // navigate.push(`/${config._id}`);
     }
   };
 
@@ -306,13 +300,13 @@ export const CasperAddLiquidity = () => {
         } catch (e) {
           console.log("ERROR : ", e);
             toast.error("An error occured please see console for details");
-            navigate.push(`/${config._id}`);
+            // navigate.push(`/${config._id}`);
         } finally {
         //setLoading(false)
         }
 
     } else {
-        navigate.push(`/${config._id}`);
+        // navigate.push(`/${config._id}`);
     }
   };
 

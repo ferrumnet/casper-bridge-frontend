@@ -1,0 +1,158 @@
+.container { 
+    display: flex;
+
+    width: 100%;
+
+    gap: 50px;
+}
+
+.connect_contaienr {
+    flex: 1.5;
+    background-color: #1A1D1F;
+    border-radius: 20px;
+
+    padding: 50px;
+    text-align: center;
+}
+
+.connect_info {
+    flex: 1
+}
+
+.title_head {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.address {
+    color: rgba(150, 149, 149, 0.699);
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: start;
+}
+
+.connnected {
+    border-color: #27C840;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.wallets {
+    display: flex;
+    padding-top: 3rem;
+    gap: 15%;
+
+    .logo {
+        padding-bottom: 0.8rem;
+    }
+
+    .logo_container {
+        border-radius: 20px;
+        padding: 20px;
+        background-color: #111315;
+        min-height: 90px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &:hover {
+            border-color: rgba(172, 255, 47, 0.584);
+            border-width: 2px;
+            border-style: solid;
+        }
+    
+        p {
+            font-size: 14px;
+        }
+    }
+}
+
+.connect_info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: start;
+    justify-content: center;
+    
+    .title {
+        font-size: 40px;
+        font-weight: 700;
+    }
+
+    .mini {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        line-height: 25px;
+
+        p {
+
+            .number {
+                background-color: #D5B47C;
+                padding-inline: 7px;
+                width: 23px;
+                border-radius: 100%;
+                justify-content: center;
+                align-items: center;
+                color: black;
+                height: fit-content;
+            }
+
+            align-items: center;
+            display: flex;
+            gap: 20px;
+        }
+    }
+}
+
+
+.connect_info_message {
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+  
+
+    gap: 20px;
+
+    input {
+        border-width: 1px;
+    }
+
+    label {
+        padding-left: 30px !important;
+    }
+
+    label {
+        &::before {
+
+            border-width: 1px !important;
+            background-color: transparent !important;
+        }
+    }
+
+    button {
+        margin-top: 1rem;
+    }
+
+    .title {
+        font-weight: 700;
+        font-size: 18px;
+        opacity: 0.7;
+    }
+
+    .small {
+        font-size: 13px;
+        opacity: 0.7;
+    }
+
+    .mini {
+        font-size: 13px;
+        opacity: 0.7;
+    }
+}

@@ -200,6 +200,7 @@ export const WalletConnector = ({
     // eslint-disable-next-line
   }, [error]);
 
+  console.log(WalletConnectView, 'WalletConnectView')
   return (
     <>
       <WalletConnectView

@@ -2,6 +2,104 @@
     margin: 0px auto;
 }
 
+.card-staking {
+    background-color: #1A1D1F !important;
+    max-width: 1000px;
+    padding-top: 50px !important;
+
+    .title {
+        font-weight: 700;
+    }
+
+    .sm-button {
+        min-width: 400px;
+    }
+
+    .address {
+        display: flex;
+        gap: 6px;
+        justify-content: start;
+        align-items: center;
+        color: black !important;
+
+        span {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 10px
+        }
+    }
+
+    .f-select {
+        width: 100%;
+        background-color: transparent;
+
+        &__placeholder {
+            color: white !important;
+            text-align: start !important;
+        }
+
+        &__control {
+            background-color: transparent;
+            color: black;
+            border-color: #777A80 !important;
+            border-width: 0px;
+            padding: 8px;
+        }
+
+        &__single-value {
+            .address {
+                color: white !important;
+            }
+        }
+
+    
+        &__input-container {
+            color: white !important;
+        }
+
+        &__menu {
+            background-color: rgba(128, 121, 121, 0.758);
+            color: black;
+            font-weight: 600;
+        }
+
+        input {
+            background-color: transparent;
+        }
+    }
+
+    label {
+        text-align: start;
+        font-weight: 400 !important;
+        font-size: 14px;
+        margin-bottom: 1rem !important;
+    }
+
+    .f-input-wrap {
+        border-color: #777A80 !important;
+    }
+
+    input {
+        border-width: 1px;
+    }
+}
+
+.swap_toggle_container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    margin-top: 2rem;
+    gap: 20px;
+}
+
+
+.view_address {
+    padding: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
 .withdrawals_container {
     width: 100%;
 
