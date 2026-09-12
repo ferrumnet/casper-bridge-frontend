@@ -33,6 +33,8 @@ export const networksToChainIdMap = {
         "currency": 'BSC:0xA719b8aB7EA7AF0DDb4358719a34631bb79d15Dc',
         "sendCurrency": "BSC:0xA719b8aB7EA7AF0DDb4358719a34631bb79d15Dc",
         "targetToken": "Ferrum_Test_Token",
+        "contract": "0xEe4F62f29F179bA884dea2c3451a7701d2268d04",
+        "chainId": 56,
     },
     "97":  {
         "sendNetwork": "BSC_TESTNET",
@@ -41,6 +43,8 @@ export const networksToChainIdMap = {
         "currency": 'BSC_TESTNET:0xfe00ee6f00dd7ed533157f6250656b4e007e7179',
         "sendCurrency": "BSC_TESTNET:0xfe00ee6f00dd7ed533157f6250656b4e007e7179",
         "targetToken": "BASE_FRM_T",
+        "contract": "0xE31641D7061B287976E19f6998776c7A57B31d0F",
+        "chainId": 97
     },
     "137": {
         "sendNetwork": "POLYGON",
@@ -49,6 +53,8 @@ export const networksToChainIdMap = {
         "currency": 'POLYGON:0xd99baFe5031cC8B345cb2e8c80135991F12D7130',
         "sendCurrency": "POLYGON:0xd99baFe5031cC8B345cb2e8c80135991F12D7130",
         "targetToken": "Ferrum_Test_Token",
+        "contract": "0xEe4F62f29F179bA884dea2c3451a7701d2268d04",
+        "chainId": 137
     },
     "1": {
         "sendNetwork": "ETHEREUM",
@@ -57,6 +63,8 @@ export const networksToChainIdMap = {
         "currency": 'ETHEREUM:0xe5caef4af8780e59df925470b050fb23c43ca68c',
         "sendCurrency": "ETHEREUM:0xe5caef4af8780e59df925470b050fb23c43ca68c",
         "targetToken": "Ferrum_Test_Token",
+        "contract": "0xE31641D7061B287976E19f6998776c7A57B31d0F",
+        "chainId": 1
     },
     "5": {
         "sendNetwork": "GOERLI_TESTNET",
@@ -66,6 +74,8 @@ export const networksToChainIdMap = {
         "sendCurrency": "GOERLI_TESTNET:0x9E780A65fDf28Bd3F7868c37156E6A33bE643744",
         "sendCurrencyFormatted": "ETHEREUM_GOERLI",
         "targetToken": "BASE_FRM",
+        "contract": "0xE31641D7061B287976E19f6998776c7A57B31d0F",
+        "chainId": 5
     },
     "80001": {
         "sendNetwork": "MUMBAI_TESTNET",
@@ -75,6 +85,7 @@ export const networksToChainIdMap = {
         "sendCurrency": "MUMBAI_TESTNET:0xd99baFe5031cC8B345cb2e8c80135991F12D7130",
         "sendCurrencyFormatter": "MUMBAI_TESTNET:0xd99baFe5031cC8B345cb2e8c80135991F12D7130",
         "targetToken": "BASE_FRM",
-        "chainId": 801,
+        "chainId": 80001,
+        "contract": "0xE31641D7061B287976E19f6998776c7A57B31d0F",
     },
 }

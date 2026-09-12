@@ -6,6 +6,7 @@ import {
     WalletApplicationWrapper 
   } from "../components/connector";
 import { walletConnectorSlice } from "../components/connector/wallet-connector/walletAuthenticationSlice";
+import { approvableButtonSlice } from "../components/connector/web3Client/approvalButtonWrapper";
 
 export const rootReducer = combineReducers({
     "connect": casperSlice.reducer,
@@ -16,7 +17,8 @@ export const rootReducer = combineReducers({
 
 const store = configureStore({
     reducer: {
-        casper: rootReducer
+        casper: rootReducer,
+        approval: approvableButtonSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => 
      getDefaultMiddleware({

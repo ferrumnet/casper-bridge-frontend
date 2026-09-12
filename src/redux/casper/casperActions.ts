@@ -54,8 +54,6 @@ export const configLoaded = (config) => async (dispatch) => {
   data = {
     ...data,
     stakingTotal: data?.staking_total,
-    stakingEnds: moment.unix(data.staking_ends).format("YYYY-MM-DD HH:mm:ss"),
-    stakingStarts: moment.unix(data.staking_starts).format("YYYY-MM-DD HH:mm:ss"),
     withdrawStarts: moment.unix(data.withdraw_starts).format("YYYY-MM-DD HH:mm:ss"),
     withdrawEnds: moment.unix(data.withdraw_ends).format("YYYY-MM-DD HH:mm:ss"),
     stakingEnds: moment.unix(data.staking_ends).format("YYYY-MM-DD HH:mm:ss"),
