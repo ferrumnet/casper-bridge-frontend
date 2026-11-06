@@ -5,10 +5,29 @@
 @import "./mobile";
 
 body * {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Nunito", sans-serif !important;
+}
+
+.landing {
+  div {
+    width: 100%;
+  }
+}
+
+.f-layout {
+  background-color: #111315;
+  .f-header {
+    padding-left: 0rem !important;
+  }
 }
 
 header {
   background: none;
   box-shadow: none;
+
+
+  img {
+    min-width: 300px;
+    width: 300px;
+  }
 }

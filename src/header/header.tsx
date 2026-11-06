@@ -11,6 +11,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as IconNetwork } from "../assets/images/casper.svg";
 
 import logo from "../assets/images/logo-light.svg";
+import logoFrm from "../assets/images/logo-frm.png";
+
 import { CgArrowsExchangeAlt } from "react-icons/cg";
 import { CasperClient, CasperServiceByJsonRPC, CLPublicKey } from "casper-js-sdk";
 import { 
@@ -23,6 +25,9 @@ import toast from "react-hot-toast";
 import AddressSelector from "../dialogs/AddressSelector";
 import { useHistory, useParams } from "react-router";
 import TxProcessingDialog from "../dialogs/TxProcessingDialog";
+import metamask from './../assets/images/Group 334.png';
+
+import './../assets/scss/styles.scss';
 
 const RPC_API = "https://casper-proxy-app-03c23ef9f855.herokuapp.com?url=https://rpc.mainnet.casperlabs.io/rpc";
 const STATUS_API = "https://4211-2a01-4b00-832a-3100-f467-7086-4cda-bb21.eu.ngrok.io/http://159.65.203.12:8888";
@@ -36,8 +41,10 @@ const Header = () => {
   const connection = useSelector((state: any) => state.casper.connect)
   const [loading, setLoading] = useState(false);
 
+  var path = window.location.pathname;
 
   const [showAddressSelectorDlg, setShowAddressSelectorDlg] =  useState<boolean>(false);
+  const { isConnected, isConnecting, currentWalletNetwork, walletAddress, networkClient } = useSelector((state: any) => state.casper.walletConnector);
 
   const connectWallet = async () => {
     //@ts-ignore
@@ -141,57 +148,71 @@ const Header = () => {
       }
     }
   }
-
+  console.log(path, 'pathtesting')
   return (
     <div>
-      <FHeader showLogo={true} headerLogo={logo} className="bg-none">
-        <FItem display={"flex"} align="right" alignY={"center"}>
-          {
-            connection?.isWalletConnected && (
-              <>
-                <FItem display={"flex"} align="right" alignY={"center"}>
-                  <span style={{"cursor": "pointer"}} onClick={() => navigate.push(`/withdraw`)}>My Withdrawals</span>
-                </FItem>
-                <FItem display={"flex"} align="right" alignY={"center"}>
-                  <span style={{"cursor": "pointer", "marginRight": "1rem"}} onClick={() => navigate.push(`/liquidity`)}>Add liquidity</span>
-                </FItem>
-              </>
-            )
-          }
-          {connection?.isWalletConnected ? (
-            <>
-              <FButton
-                prefix={CgArrowsExchangeAlt && <CgArrowsExchangeAlt />}
-                onClick={() => {
-                  setShowAddressSelectorDlg(true);
-                }}
-              ></FButton>
-              <FButton
-                className="f-mr-1"
-                title={"Disconnect Wallet"}
-                onClick={disconnectWallet}
-                btnInfo={
-                  <FItem display={"flex"}>
-                    {IconNetwork && <IconNetwork width={20} /> }
-                    <FTruncateText
-                      className="f-ml-1"
-                      text={connection?.selectedAccount?.address || ''}
-                    />
-                  </FItem>
-                }
-              />
-            </>
-          ) : (
-            <FButton
-              className="f-mr-1"
-              title={"Connect to Casper Wallet"}
-              onClick={connectWallet}
-            ></FButton>
-          )}
-          {/* <FHeaderCollapse>
-            <FHeaderMenuItem to="/status-page" title="Status Page" />
-          </FHeaderCollapse> */}
-        </FItem>
+      <FHeader showLogo={true} headerLogo={logoFrm} className="bg-none header f-pl-0">
+        {
+          (path.includes('swap') || path.includes('withdraw') || path.includes('liquidity')) &&
+            <FItem display={"flex"} align="right" alignY={"center"}>
+              {
+                connection?.isWalletConnected && (
+                  <>
+                    <FItem display={"flex"} align="right" alignY={"center"}>
+                      <span style={{"cursor": "pointer"}} onClick={() => navigate.push(`/withdraw`)}>My Withdrawals</span>
+                    </FItem>
+                    <FItem display={"flex"} align="right" alignY={"center"}>
+                      <span style={{"cursor": "pointer", "marginRight": "1rem"}} onClick={() => navigate.push(`/liquidity`)}>Add liquidity</span>
+                    </FItem>
+                  </>
+                )
+              }
+              {connection?.isWalletConnected ? (
+                <>
+                  <FButton
+                    className="f-p-0 f-mr-2 view_address"
+                    prefix={CgArrowsExchangeAlt && <CgArrowsExchangeAlt />}
+                    onClick={() => {
+                      setShowAddressSelectorDlg(true);
+                    }}
+                  ></FButton>
+                  <FButton
+                    className="f-mr-1"
+                    title={"Disconnect Wallet"}
+                    onClick={disconnectWallet}
+                    btnInfo={
+                      <>
+                        <FItem display={"flex"}>
+                          {IconNetwork && <IconNetwork width={20} /> }
+                          <FTruncateText
+                            className="f-ml-1"
+                            text={connection?.selectedAccount?.address || ''}
+                          />
+                        </FItem>
+                        {
+                          walletAddress && (
+                            <FItem display={"flex f-pl-2"}>
+                              {<img src={metamask} width={0} style={{"minWidth": "10px", "width": "25px"}} /> }
+                              <FTruncateText
+                                className="f-ml-1"
+                                text={walletAddress || ''}
+                              />
+                            </FItem>
+                          )
+                        }
+                      </>
+                    }
+                  />
+                </>
+              ) : (
+                <FButton
+                  className="f-mr-1"
+                  title={"Connect to Casper Wallet"}
+                  onClick={connectWallet}
+                ></FButton>
+              )}
+            </FItem>
+        }
       </FHeader>
       <TxProcessingDialog showClose={false} message={"Loading Configuration"} show={loading}/>
       {showAddressSelectorDlg && (

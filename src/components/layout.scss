@@ -2,11 +2,73 @@
     margin: 0px auto;
 }
 
-.withdrawals_container {
+.container_withdrawal_parent {
     width: 100%;
+    margin: 0px auto;
+    justify-content: center;
+    display: flex;
+    border-radius: 20px;
+    background-color: #1A1D1F;
+    padding-top: 3rem;
+    margin-top: 40px;
+    margin-bottom: 2rem;
+
+    .title {
+        font-weight: 700;
+        font-size: 25px !important;
+    }
+}
+
+.withdrawals_container {
+    width: 90%;
+    margin: 0 auto;
 
     .f-table-wrapper {
-        width: 100%;
+        width: 95% !important;
+        margin: 0px auto;
         margin-top: 2rem;
+        margin-bottom: 1rem;
+
+        thead {
+            background: #000000 !important;
+            border-radius: 20px !important;
+
+        }
+
+        tbody {
+            margin-top: 1rem;
+        }
+
+        tr {
+            border-radius: 0;
+            background: #000000 !important;
+        }
+
+        .thead-tr {
+            border-radius: 20px !important;
+        }
+
+        td {
+            border-radius: 0 !important;
+            min-width: 13.33% !important;
+            width: 13.33% !important;
+        }
+    }
+}
+
+.col-action {
+    width: 100%;
+
+    .f-btn {
+        padding: 0.5rem;
+        margin: 4px;
+        margin-left: 0px;
+    }
+
+    span {
+        justify-content: center;
+        display: flex;
+        gap: 5px;
+        align-items: center;
     }
 }

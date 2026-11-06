@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 
 import { injected } from "./connectors";
+import { useDispatch } from "react-redux";
+import { walletConnectorActions } from "..";
 
 export function useEagerConnect() {
   const { activate, active } = useWeb3React();
@@ -33,6 +35,7 @@ export function useEagerConnect() {
 
 export function useInactiveListener(suppress: boolean = false) {
   const { active, error, activate } = useWeb3React();
+  const dispatch = useDispatch();
 
   useEffect((): any => {
     const { ethereum } = window as any;
@@ -43,10 +46,15 @@ export function useInactiveListener(suppress: boolean = false) {
       };
       const handleChainChanged = (chainId: string | number) => {
         console.log("Handling 'chainChanged' event with payload", chainId);
+        dispatch(walletConnectorActions.resetWalletConnector());
+        dispatch(walletConnectorActions.connectWallet());
         activate(injected);
       };
       const handleAccountsChanged = async (accounts: string[]) => {
         await ethereum.enable();
+        dispatch(walletConnectorActions.resetWalletConnector());
+        dispatch(walletConnectorActions.connectWallet());
+
         console.log("Handling 'accountsChanged' event with payload", accounts);
         if (accounts.length > 0) {
           activate(injected);
@@ -54,6 +62,8 @@ export function useInactiveListener(suppress: boolean = false) {
       };
       const handleNetworkChanged = (networkId: string | number) => {
         console.log("Handling 'networkChanged' event with payload", networkId);
+        dispatch(walletConnectorActions.resetWalletConnector());
+        dispatch(walletConnectorActions.connectWallet());
         activate(injected);
       };
 

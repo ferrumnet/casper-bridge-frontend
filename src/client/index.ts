@@ -7,7 +7,7 @@ export class crucibleApi {
   address = ""
 
   async signInToServer(userAddress: string) {
-    const res = await axios.post('https://4ikenxgwge.execute-api.us-east-2.amazonaws.com/default/kb-staging-backend', {
+    const res = await axios.post('http://localhost:8080', {
       command: "signInUsingAddress",
       data: { userAddress },
       params: [],
@@ -19,7 +19,7 @@ export class crucibleApi {
   }
 
   gatewayApi(data: any) {
-    return axios.post('https://4ikenxgwge.execute-api.us-east-2.amazonaws.com/default/kb-staging-backend', data, {
+    return axios.post('http://localhost:8080', data, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-type": "Application/json",

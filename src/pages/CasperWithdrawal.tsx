@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getStakingInfo } from "../utils/DateUtil";
 import { connectWallet, connectWallet as connectWalletDispatch } from '../redux/casper/casperActions';
 import { useHistory, useParams } from "react-router";
-import './layout.scss';
 import { CasperServiceByJsonRPC, CLPublicKey, CLValue, 
   CLValueBuilder, 
   decodeBase16, 
@@ -211,7 +210,7 @@ export const CasperWithdrawal = () => {
       }
 
     } else {
-      navigate.push(`/${config._id}`);
+      // navigate.push(`/${config._id}`);
     }
   };
 
